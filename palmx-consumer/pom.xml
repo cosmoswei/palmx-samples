@@ -35,6 +35,11 @@
             <artifactId>netty-all</artifactId>
             <version>4.1.107.Final</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>3.0.3</version>
+        </dependency>
     </dependencies>
 
 </project>
