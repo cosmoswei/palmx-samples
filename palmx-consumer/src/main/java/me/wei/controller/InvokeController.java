@@ -2,11 +2,15 @@ package me.wei.controller;
 
 
 import me.wei.service.InvokeService;
+import me.wei.util.ExcelUtil;
 import me.wei.util.Metric;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,5 +53,17 @@ public class InvokeController {
             System.out.println(metric.getInterval());
         }
         return "sonUtil.toJson(metrics)";
+    }
+
+    @GetMapping("/excel")
+    public String downloadExcel(HttpServletResponse response) {
+        try {
+            String fileName = "数据指标" + System.currentTimeMillis() % 1000;
+            ExcelUtil.writeExcelToResponse(response, metrics, Metric.class, fileName);
+            return "Excel文件已生成";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "生成Excel失败";
+        }
     }
 }
