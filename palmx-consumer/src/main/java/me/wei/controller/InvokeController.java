@@ -4,6 +4,7 @@ package me.wei.controller;
 import me.wei.service.InvokeService;
 import me.wei.util.ExcelUtil;
 import me.wei.util.Metric;
+import me.wei.util.MetricUtil;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +13,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class InvokeController {
@@ -21,10 +24,7 @@ public class InvokeController {
     private InvokeService invokeService;
 
     int empty = 0;
-    int dubbo = 0;
     int palmx = 0;
-
-    List<Metric> metrics = new ArrayList<>();
 
     @RequestMapping("/empty")
     public String empty() {
@@ -42,28 +42,7 @@ public class InvokeController {
         String res = invokeService.invokePalmx();
         long end = System.currentTimeMillis();
         Metric metric = new Metric(palmx++, end - start);
-        metrics.add(metric);
+        MetricUtil.metricMap.getOrDefault("palmx", new ArrayList<>()).add(metric);
         return res;
-    }
-
-    @RequestMapping("/metric")
-    public String metric() {
-        for (Metric metric : metrics) {
-            System.out.print(metric.getTimes() + ",");
-            System.out.println(metric.getInterval());
-        }
-        return "sonUtil.toJson(metrics)";
-    }
-
-    @GetMapping("/excel")
-    public String downloadExcel(HttpServletResponse response) {
-        try {
-            String fileName = "数据指标" + System.currentTimeMillis() % 1000;
-            ExcelUtil.writeExcelToResponse(response, metrics, Metric.class, fileName);
-            return "Excel文件已生成";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "生成Excel失败";
-        }
     }
 }
