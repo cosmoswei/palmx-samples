@@ -11,6 +11,7 @@
     <modules>
         <module>palmx-consumer</module>
         <module>palmx-provider</module>
+        <module>palmx-benchmark</module>
     </modules>
 
     <properties>
