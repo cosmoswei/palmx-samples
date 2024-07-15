@@ -1,5 +1,5 @@
 package me.wei.service;
 
-public interface PalmxService {
+public interface InvokeService {
      String invokePalmx(long l);
 }

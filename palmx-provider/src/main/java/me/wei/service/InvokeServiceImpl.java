@@ -1,9 +1,11 @@
 package me.wei.service;
 
+import me.xuqu.palmx.spring.PalmxService;
+
 import java.util.concurrent.TimeUnit;
 
-@me.xuqu.palmx.spring.PalmxService
-public class PalmxServiceImpl implements PalmxService {
+@PalmxService
+public class InvokeServiceImpl implements InvokeService {
 
     @Override
     public String invokePalmx(long l) {
