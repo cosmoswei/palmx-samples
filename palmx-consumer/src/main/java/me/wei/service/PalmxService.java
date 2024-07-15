@@ -1,5 +1,15 @@
 package me.wei.service;
 
-public interface PalmxService {
-     String invokePalmx(long l);
+import me.xuqu.palmx.spring.PalmxClient;
+import org.springframework.stereotype.Component;
+
+@Component
+public class PalmxService {
+
+    @PalmxClient
+    private DemoService demoService;
+
+    public String invoke() {
+        return "invokePalmx = " + demoService.demoSleepSecond(1L);
+    }
 }

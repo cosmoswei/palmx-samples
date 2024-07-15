@@ -1,7 +1,7 @@
 package me.wei.controller;
 
 
-import me.wei.service.InvokeService;
+import me.wei.service.PalmxService;
 import me.wei.util.ExcelUtil;
 import me.wei.util.Metric;
 import me.wei.util.MetricUtil;
@@ -19,7 +19,7 @@ public class MetricController {
 
     private static final Logger log = LoggerFactory.getLogger(MetricController.class);
     @Resource
-    private InvokeService invokeService;
+    private PalmxService invokeServiceClint;
 
     @GetMapping("/excel")
     public String downloadExcel(String param, HttpServletResponse response) {

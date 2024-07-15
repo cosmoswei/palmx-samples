@@ -1,7 +1,7 @@
 package me.wei.controller;
 
 
-import me.wei.service.InvokeService;
+import me.wei.service.PalmxService;
 import me.wei.util.Metric;
 import me.wei.util.MetricUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import java.util.List;
 public class InvokeController {
 
     @Resource
-    private InvokeService invokeService;
+    private PalmxService palmxService;
 
     int empty = 0;
     int palmx = 0;
@@ -33,7 +33,7 @@ public class InvokeController {
     @RequestMapping("/palmx")
     public String palmx() {
         long start = System.currentTimeMillis();
-        String res = invokeService.invokePalmx();
+        String res = palmxService.invoke();
         long end = System.currentTimeMillis();
         Metric metric = new Metric(palmx++, end - start);
         List<Metric> metricList = MetricUtil.metricMap.getOrDefault("palmx", new ArrayList<>());

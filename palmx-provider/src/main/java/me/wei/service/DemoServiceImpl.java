@@ -5,10 +5,10 @@ import me.xuqu.palmx.spring.PalmxService;
 import java.util.concurrent.TimeUnit;
 
 @PalmxService
-public class InvokeServiceImpl implements InvokeService {
+public class DemoServiceImpl implements DemoService {
 
     @Override
-    public String invokePalmx(long l) {
+    public String demoSleepSecond(long l) {
         try {
             TimeUnit.MILLISECONDS.sleep(l);
         } catch (InterruptedException e) {
