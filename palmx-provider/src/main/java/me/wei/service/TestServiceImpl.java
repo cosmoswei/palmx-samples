@@ -1,11 +1,12 @@
 package me.wei.service;
 
+import me.xuqu.palmx.common.FlowControlType;
 import me.xuqu.palmx.spring.PalmxService;
 
 import java.util.concurrent.TimeUnit;
 
-@PalmxService
-public class DemoServiceImpl implements DemoService {
+@PalmxService(flowControlLimitCount = 100000, flowControlLimitType = FlowControlType.ADAPTIVE)
+public class TestServiceImpl implements DemoService {
 
     @Override
     public String demoSleepSecond(long l) {
@@ -14,6 +15,6 @@ public class DemoServiceImpl implements DemoService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return "DemoServiceImpl success" + System.currentTimeMillis() % 10000;
+        return "TestServiceImpl success" + System.currentTimeMillis() % 10000;
     }
 }
