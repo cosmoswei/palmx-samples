@@ -29,7 +29,6 @@ public class MetricController {
             log.info("Excel文件已生成,Size = `{}`", MetricUtil.metricMap.get(param));
             return "Excel文件已生成";
         } catch (IOException e) {
-            e.printStackTrace();
             return "生成Excel失败";
         }
     }
