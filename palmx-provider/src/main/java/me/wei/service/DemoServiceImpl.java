@@ -1,10 +1,11 @@
 package me.wei.service;
 
+import me.xuqu.palmx.common.FlowControlType;
 import me.xuqu.palmx.spring.PalmxService;
 
 import java.util.concurrent.TimeUnit;
 
-@PalmxService
+@PalmxService(flowControlLimitCount = 200000, flowControlLimitType = FlowControlType.SLIDING_WINDOW)
 public class DemoServiceImpl implements DemoService {
 
     @Override
