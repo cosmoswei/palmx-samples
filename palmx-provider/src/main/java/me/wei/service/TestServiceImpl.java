@@ -6,10 +6,10 @@ import me.xuqu.palmx.spring.PalmxService;
 import java.util.concurrent.TimeUnit;
 
 @PalmxService(flowControlLimitCount = 100000, flowControlLimitType = FlowControlType.ADAPTIVE)
-public class TestServiceImpl implements DemoService {
+public class TestServiceImpl implements TestService {
 
     @Override
-    public String demoSleepSecond(long l) {
+    public String testSleepSecond(long l) {
         try {
             TimeUnit.MILLISECONDS.sleep(l);
         } catch (InterruptedException e) {
