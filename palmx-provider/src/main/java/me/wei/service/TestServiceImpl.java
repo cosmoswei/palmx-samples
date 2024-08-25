@@ -11,6 +11,7 @@ public class TestServiceImpl implements TestService {
     @Override
     public String testSleepSecond(long l) {
         try {
+            System.gc();
             TimeUnit.MILLISECONDS.sleep(l);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

@@ -33,12 +33,24 @@ public class InvokeController {
     @RequestMapping("/palmx")
     public String palmx() {
         long start = System.currentTimeMillis();
-        String res = palmxService.invoke();
+        String res = palmxService.invokeDemo();
         long end = System.currentTimeMillis();
         Metric metric = new Metric(palmx++, end - start);
         List<Metric> metricList = MetricUtil.metricMap.getOrDefault("palmx", new ArrayList<>());
         metricList.add(metric);
-        MetricUtil.metricMap.put("palmx", metricList);
+        MetricUtil.metricMap.put("demo", metricList);
+        return res;
+    }
+
+    @RequestMapping("/test")
+    public String test() {
+        long start = System.currentTimeMillis();
+        String res = palmxService.invokeTest();
+        long end = System.currentTimeMillis();
+        Metric metric = new Metric(palmx++, end - start);
+        List<Metric> metricList = MetricUtil.metricMap.getOrDefault("palmx", new ArrayList<>());
+        metricList.add(metric);
+        MetricUtil.metricMap.put("test", metricList);
         return res;
     }
 }

@@ -8,8 +8,14 @@ public class PalmxService {
 
     @PalmxClient
     private DemoService demoService;
+    @PalmxClient
+    private TestService testService;
 
-    public String invoke() {
-        return "invokePalmx = " + demoService.demoSleepSecond(1L);
+    public String invokeDemo() {
+        return "invokeDemo = " + demoService.demoSleepSecond(1L);
+    }
+
+    public String invokeTest() {
+        return "invokeTest = " + testService.testSleepSecond(1L);
     }
 }
