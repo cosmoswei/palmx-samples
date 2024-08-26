@@ -12,6 +12,7 @@ public class TestServiceImpl implements TestService {
     public String testSleepSecond(long l) {
         try {
             System.gc();
+            byte[] bytes = new byte[200 * 1024 * 1024];
             TimeUnit.MILLISECONDS.sleep(l);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

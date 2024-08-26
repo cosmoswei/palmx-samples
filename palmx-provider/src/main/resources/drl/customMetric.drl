@@ -1,0 +1,19 @@
+package me.xuqu.pamlx.rule
+import java.lang.String;
+import java.util.Date
+global java.util.Date date
+import me.xuqu.palmx.metric.pojo.Metrics
+import java.util.Random;
+global me.xuqu.palmx.rule.QoS qoS
+
+
+dialect "java"
+rule "testRule"
+
+    when
+        // 如果阻塞线程的数量大于10
+        Metrics(jvmMetrics.getBlockedThreads() < 10)
+    then
+        // 则将QoS等级设为10
+        qoS.setQoSLevel(new Random().nextInt(100));
+end
