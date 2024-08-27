@@ -8,12 +8,21 @@ global me.xuqu.palmx.rule.QoS qoS
 
 
 dialect "java"
-rule "testRule"
+rule "firstRule"
 
     when
         // 如果阻塞线程的数量大于10
         Metrics(jvmMetrics.getBlockedThreads() < 10)
     then
         // 则将QoS等级设为10
-        qoS.setQoSLevel(new Random().nextInt(100));
+        qoS.setQoSLevel(new Random().nextInt(120));
+end
+
+rule "bottomRule"
+    when
+    then
+        // 如果QoS大于100，则将QoS等级设为100
+      if (qoS.getQoSLevel() > 100){
+          qoS.setQoSLevel(100);
+      }
 end
