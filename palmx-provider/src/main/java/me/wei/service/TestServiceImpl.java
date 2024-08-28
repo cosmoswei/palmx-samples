@@ -5,7 +5,7 @@ import me.xuqu.palmx.spring.PalmxService;
 
 import java.util.concurrent.TimeUnit;
 
-@PalmxService(flowControlLimitCount = 100000, flowControlLimitType = FlowControlType.ADAPTIVE)
+@PalmxService(flowControlLimitCount = 100000, flowControlLimitType = FlowControlType.COUNTER)
 public class TestServiceImpl implements TestService {
 
     @Override
