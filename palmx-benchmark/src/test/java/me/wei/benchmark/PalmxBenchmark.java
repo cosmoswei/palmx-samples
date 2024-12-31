@@ -3,14 +3,7 @@ package me.wei.benchmark;
 import lombok.extern.slf4j.Slf4j;
 import me.wei.ProviderRun;
 import me.wei.service.DemoService;
-import me.wei.service.PalmxService;
-import me.wei.service.impl.DemoServiceImpl;
 import me.xuqu.palmx.locator.DefaultServiceLocator;
-import me.xuqu.palmx.net.PalmxServer;
-import me.xuqu.palmx.net.netty.NettyServer;
-import me.xuqu.palmx.provider.DefaultServiceProvider;
-import me.xuqu.palmx.registry.ServiceRegistry;
-import me.xuqu.palmx.registry.impl.ZookeeperServiceRegistry;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
@@ -33,12 +26,12 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class PalmxBenchmark {
 
-    @Param(value = {"100", "1000", "10000"})
+    @Param(value = {"100", "1000", "10000", "20000"})
     private int param;
 
-    DemoService demoService;
+    private DemoService demoService;
 
-    DefaultServiceLocator serviceLocator;
+    private DefaultServiceLocator serviceLocator;
 
     private ConfigurableApplicationContext context;
 
@@ -92,7 +85,7 @@ public class PalmxBenchmark {
                 .include(PalmxBenchmark.class.getSimpleName())
                 .result("palmx-benchmark/result/"
                         + LocalDateTime.now().getMinute()
-                        + "-PalmxBenchmark.json")
+                        + "-palmxBenchmark.json")
                 .resultFormat(ResultFormatType.JSON).build();
         new Runner(opt).run();
     }
