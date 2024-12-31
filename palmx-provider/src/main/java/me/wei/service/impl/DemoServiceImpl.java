@@ -1,5 +1,6 @@
-package me.wei.service;
+package me.wei.service.impl;
 
+import me.wei.service.DemoService;
 import me.xuqu.palmx.common.FlowControlType;
 import me.xuqu.palmx.spring.PalmxService;
 
@@ -15,6 +16,11 @@ public class DemoServiceImpl implements DemoService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return "DemoServiceImpl success" + System.currentTimeMillis() % 10000;
+        return "demoSleepSecond success and " + System.currentTimeMillis() % 10000;
+    }
+
+    @Override
+    public String demoInvoke() {
+        return "demoInvoke success " + System.currentTimeMillis() % 10000;
     }
 }

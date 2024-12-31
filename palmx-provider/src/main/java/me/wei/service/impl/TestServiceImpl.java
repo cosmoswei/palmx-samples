@@ -1,5 +1,6 @@
-package me.wei.service;
+package me.wei.service.impl;
 
+import me.wei.service.TestService;
 import me.xuqu.palmx.common.FlowControlType;
 import me.xuqu.palmx.spring.PalmxService;
 
@@ -17,6 +18,6 @@ public class TestServiceImpl implements TestService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return "TestServiceImpl success" + System.currentTimeMillis() % 10000;
+        return "TestServiceImpl success " + System.currentTimeMillis() % 10000;
     }
 }
