@@ -19,8 +19,10 @@ public class DemoServiceImpl implements DemoService {
         return "demoSleepSecond success and " + System.currentTimeMillis() % 10000;
     }
 
+    private int cnt = 0;
+
     @Override
     public String demoInvoke() {
-        return "demoInvoke success " + System.currentTimeMillis() % 10000;
+        return (cnt++) + " demoInvoke success " + System.currentTimeMillis() % 10000;
     }
 }

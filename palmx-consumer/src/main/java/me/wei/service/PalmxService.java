@@ -12,7 +12,10 @@ public class PalmxService {
     private TestService testService;
 
     public String invokeDemo() {
-        return "invokeDemo = " + demoService.demoSleepSecond(1L);
+        long start = System.currentTimeMillis();
+        String res = demoService.demoInvoke();
+        long end = System.currentTimeMillis();
+        return "method = invokeDemo, res = " + res + ", duration = " + (end - start);
     }
 
     public String invokeTest() {
