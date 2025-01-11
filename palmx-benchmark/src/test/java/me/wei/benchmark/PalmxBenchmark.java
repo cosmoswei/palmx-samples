@@ -1,24 +1,14 @@
 package me.wei.benchmark;
 
 import lombok.extern.slf4j.Slf4j;
-import me.wei.ProviderRun;
 import me.wei.service.DemoService;
-import me.wei.service.PalmxService;
-import me.wei.service.impl.DemoServiceImpl;
 import me.xuqu.palmx.locator.DefaultServiceLocator;
-import me.xuqu.palmx.net.PalmxServer;
-import me.xuqu.palmx.net.netty.NettyHttp3Server;
-import me.xuqu.palmx.provider.DefaultServiceProvider;
-import me.xuqu.palmx.registry.ServiceRegistry;
-import me.xuqu.palmx.registry.impl.ZookeeperServiceRegistry;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
@@ -27,8 +17,8 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.AverageTime)
 @Warmup(iterations = 2, time = 1)
 @Measurement(iterations = 3, time = 1)
-@Threads(1)
-@Fork(1)
+@Threads(5)
+@Fork(5)
 @State(value = Scope.Benchmark)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class PalmxBenchmark {
@@ -39,8 +29,6 @@ public class PalmxBenchmark {
     private DemoService demoService;
 
     private DefaultServiceLocator serviceLocator;
-
-    private ConfigurableApplicationContext context;
 
     @Setup
     public void init() throws InterruptedException {
@@ -55,19 +43,6 @@ public class PalmxBenchmark {
     }
 
     public void server() {
-        // 这里的WebApplication.class是项目里的spring boot启动类
-        context = SpringApplication.run(ProviderRun.class);
-
-        // 启动一个服务器
-        PalmxServer server = new NettyHttp3Server();
-        new Thread(server::start, "palmx-server").start();
-        // 创建单个服务的实现类实例，并将其添加到容器中管理
-        String serviceName = PalmxService.class.getName();
-        DemoService fooService = new DemoServiceImpl();
-        DefaultServiceProvider.getInstance().addService(serviceName, fooService);
-        // 将指定服务注册到 Zookeeper
-        ServiceRegistry serviceRegistry = new ZookeeperServiceRegistry();
-        serviceRegistry.register(serviceName, server.getAddress());
     }
 
     @TearDown
@@ -77,13 +52,10 @@ public class PalmxBenchmark {
 
     @Benchmark
     public void invoke() {
-        long start = System.currentTimeMillis();
         int loop = param;
         for (int i = 0; i < loop; i++) {
             String res = demoService.demoInvoke();
         }
-        long end = System.currentTimeMillis();
-        System.out.println(loop + "：time = " + (end - start) + " ms");
     }
 
     public static void main(String[] args) throws RunnerException {
