@@ -11,9 +11,21 @@ public class PalmxService {
     @PalmxClient
     private TestService testService;
 
+
     public String invokeDemo() {
         long start = System.currentTimeMillis();
         String res = demoService.demoInvoke();
+        long end = System.currentTimeMillis();
+        return "method = invokeDemo, res = " + res + ", duration = " + (end - start);
+    }
+
+
+    public String loopInvokeDemo(int loopCount) {
+        long start = System.currentTimeMillis();
+        String res = null;
+        for (int i = 0; i < loopCount; i++) {
+            res = demoService.demoInvoke();
+        }
         long end = System.currentTimeMillis();
         return "method = invokeDemo, res = " + res + ", duration = " + (end - start);
     }

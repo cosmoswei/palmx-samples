@@ -3,7 +3,14 @@ package me.wei.benchmark;
 import lombok.extern.slf4j.Slf4j;
 import me.wei.ProviderRun;
 import me.wei.service.DemoService;
+import me.wei.service.PalmxService;
+import me.wei.service.impl.DemoServiceImpl;
 import me.xuqu.palmx.locator.DefaultServiceLocator;
+import me.xuqu.palmx.net.PalmxServer;
+import me.xuqu.palmx.net.netty.NettyHttp3Server;
+import me.xuqu.palmx.provider.DefaultServiceProvider;
+import me.xuqu.palmx.registry.ServiceRegistry;
+import me.xuqu.palmx.registry.impl.ZookeeperServiceRegistry;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
@@ -37,7 +44,6 @@ public class PalmxBenchmark {
 
     @Setup
     public void init() throws InterruptedException {
-//        server();
         client();
         log.info("启动 init ");
         Thread.sleep(2000);
@@ -53,15 +59,15 @@ public class PalmxBenchmark {
         context = SpringApplication.run(ProviderRun.class);
 
         // 启动一个服务器
-//        PalmxServer server = new NettyServer();
-//        new Thread(server::start, "palmx-server").start();
-//        // 创建单个服务的实现类实例，并将其添加到容器中管理
-//        String serviceName = PalmxService.class.getName();
-//        DemoService fooService = new DemoServiceImpl();
-//        DefaultServiceProvider.getInstance().addService(serviceName, fooService);
-//        // 将指定服务注册到 Zookeeper
-//        ServiceRegistry serviceRegistry = new ZookeeperServiceRegistry();
-//        serviceRegistry.register(serviceName, server.getAddress());
+        PalmxServer server = new NettyHttp3Server();
+        new Thread(server::start, "palmx-server").start();
+        // 创建单个服务的实现类实例，并将其添加到容器中管理
+        String serviceName = PalmxService.class.getName();
+        DemoService fooService = new DemoServiceImpl();
+        DefaultServiceProvider.getInstance().addService(serviceName, fooService);
+        // 将指定服务注册到 Zookeeper
+        ServiceRegistry serviceRegistry = new ZookeeperServiceRegistry();
+        serviceRegistry.register(serviceName, server.getAddress());
     }
 
     @TearDown
