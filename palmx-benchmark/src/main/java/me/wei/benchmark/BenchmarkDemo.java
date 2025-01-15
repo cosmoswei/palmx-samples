@@ -1,7 +1,7 @@
 package me.wei.benchmark;
 
-import me.wei.service.DemoService;
-import me.wei.service.impl.DemoServiceImpl;
+import me.wei.service.PalmxService;
+import me.wei.service.impl.PalmxServiceImpl;
 import me.xuqu.palmx.locator.DefaultServiceLocator;
 import me.xuqu.palmx.net.PalmxServer;
 import me.xuqu.palmx.net.netty.NettyServer;
@@ -11,7 +11,7 @@ import me.xuqu.palmx.registry.impl.ZookeeperServiceRegistry;
 
 public class BenchmarkDemo {
 
-    DemoService demoService;
+    PalmxService demoService;
 
     public void init() {
         // 这里的WebApplication.class是项目里的spring boot启动类
@@ -21,7 +21,7 @@ public class BenchmarkDemo {
 
     public void client() {
         DefaultServiceLocator serviceLocator = new DefaultServiceLocator();
-        demoService = serviceLocator.lookup(DemoService.class);
+        demoService = serviceLocator.lookup(PalmxService.class);
     }
 
 
@@ -30,8 +30,8 @@ public class BenchmarkDemo {
         PalmxServer server = new NettyServer();
         new Thread(server::start, "palmx-server").start();
         // 创建单个服务的实现类实例，并将其添加到容器中管理
-        String serviceName = DemoService.class.getName();
-        DemoService fooService = new DemoServiceImpl();
+        String serviceName = PalmxService.class.getName();
+        PalmxService fooService = new PalmxServiceImpl();
         DefaultServiceProvider.getInstance().addService(serviceName, fooService);
         // 将指定服务注册到 Zookeeper
         ServiceRegistry serviceRegistry = new ZookeeperServiceRegistry();

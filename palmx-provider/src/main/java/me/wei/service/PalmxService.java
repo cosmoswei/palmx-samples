@@ -1,6 +1,7 @@
 package me.wei.service;
 
-public interface DemoService {
+public interface PalmxService {
     String demoSleepSecond(long l);
+
     String demoInvoke();
 }

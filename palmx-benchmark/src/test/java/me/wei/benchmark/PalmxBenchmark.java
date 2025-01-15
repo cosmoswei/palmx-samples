@@ -1,7 +1,7 @@
 package me.wei.benchmark;
 
 import lombok.extern.slf4j.Slf4j;
-import me.wei.service.DemoService;
+import me.wei.service.PalmxService;
 import me.xuqu.palmx.locator.DefaultServiceLocator;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
@@ -26,7 +26,7 @@ public class PalmxBenchmark {
     @Param(value = {"100", "1000", "10000", "20000"})
     private int param;
 
-    private DemoService demoService;
+    private PalmxService demoService;
 
     private DefaultServiceLocator serviceLocator;
 
@@ -39,7 +39,7 @@ public class PalmxBenchmark {
 
     public void client() {
         serviceLocator = new DefaultServiceLocator();
-        demoService = serviceLocator.lookup(DemoService.class);
+        demoService = serviceLocator.lookup(PalmxService.class);
     }
 
     public void server() {

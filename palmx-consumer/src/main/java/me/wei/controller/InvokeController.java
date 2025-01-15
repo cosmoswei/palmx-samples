@@ -1,54 +1,35 @@
 package me.wei.controller;
 
 
-import me.wei.service.PalmxService;
-import me.wei.util.Metric;
-import me.wei.util.MetricUtil;
+import me.wei.service.InvokeClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class InvokeController {
 
     @Resource
-    private PalmxService palmxService;
-
-    int empty = 0;
-    int palmx = 0;
+    private InvokeClient invokeClient;
 
     @RequestMapping("/empty")
     public String empty() {
-        long start = System.currentTimeMillis();
-        empty++;
-        long end = System.currentTimeMillis();
-        long res = end - start;
-        return "success  + " + res;
-
+        return "success";
     }
 
     @RequestMapping("/palmx")
     public String palmx() {
-        return palmxService.invokeDemo();
+        return invokeClient.invokePalmx();
     }
 
     @RequestMapping("/palmx/multi")
     public String multiPalmx(int loopCount) {
-        return palmxService.loopInvokeDemo(loopCount);
+        return invokeClient.loopInvokeDemo(loopCount);
     }
 
-    @RequestMapping("/test")
-    public String test() {
-        long start = System.currentTimeMillis();
-        String res = palmxService.invokeTest();
-        long end = System.currentTimeMillis();
-        Metric metric = new Metric(palmx++, end - start);
-        List<Metric> metricList = MetricUtil.metricMap.getOrDefault("palmx", new ArrayList<>());
-        metricList.add(metric);
-        MetricUtil.metricMap.put("test", metricList);
-        return res;
+    @RequestMapping("/dubbo")
+    public String dubbo() {
+        return invokeClient.invokeDubbo();
     }
 }

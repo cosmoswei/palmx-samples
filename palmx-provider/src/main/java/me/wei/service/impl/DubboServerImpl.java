@@ -1,16 +1,15 @@
 package me.wei.service.impl;
 
-import me.wei.service.DemoService;
-import me.xuqu.palmx.common.FlowControlType;
-import me.xuqu.palmx.spring.PalmxService;
+import me.wei.service.DubboServer;
+import org.apache.dubbo.config.annotation.DubboService;
 
 import java.util.concurrent.TimeUnit;
 
-@PalmxService(flowControlLimitCount = 200000, flowControlLimitType = FlowControlType.SLIDING_WINDOW)
-public class DemoServiceImpl implements DemoService {
+@DubboService
+public class DubboServerImpl implements DubboServer {
 
     @Override
-    public String demoSleepSecond(long l) {
+    public String sleepSecond(long l) {
         try {
             TimeUnit.MILLISECONDS.sleep(l);
         } catch (InterruptedException e) {
@@ -22,7 +21,7 @@ public class DemoServiceImpl implements DemoService {
     private int cnt = 0;
 
     @Override
-    public String demoInvoke() {
+    public String dubboInvoke() {
         return (cnt++) + " demoInvoke success " + System.currentTimeMillis() % 10000;
     }
 }

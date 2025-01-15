@@ -1,7 +1,7 @@
 package me.wei.service;
 
-public interface PalmxService {
+public interface DubboServer {
     String sleepSecond(long l);
 
-    String demoInvoke();
+    String dubboInvoke();
 }
