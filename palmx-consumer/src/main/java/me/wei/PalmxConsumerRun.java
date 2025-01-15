@@ -6,8 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnablePalmx
-public class ProviderRun {
+public class PalmxConsumerRun {
+
     public static void main(String[] args) {
-        SpringApplication.run(ProviderRun.class, args);
+        SpringApplication.run(PalmxConsumerRun.class, args);
     }
+
 }
