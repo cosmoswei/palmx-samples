@@ -1,4 +1,4 @@
-package me.wei.service;
+package com.wei.service;
 
 public interface DubboServer {
     String sleepSecond(long l);

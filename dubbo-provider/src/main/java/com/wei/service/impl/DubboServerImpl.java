@@ -1,6 +1,6 @@
-package me.wei.service.impl;
+package com.wei.service.impl;
 
-import me.wei.service.DubboServer;
+import com.wei.service.DubboServer;
 import org.apache.dubbo.config.annotation.DubboService;
 
 import java.util.concurrent.TimeUnit;

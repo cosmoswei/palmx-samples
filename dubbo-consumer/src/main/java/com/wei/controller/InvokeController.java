@@ -1,7 +1,7 @@
-package me.wei.controller;
+package com.wei.controller;
 
 
-import me.wei.service.InvokeClient;
+import com.wei.service.InvokeClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,14 +18,8 @@ public class InvokeController {
         return "success";
     }
 
-    @RequestMapping("/palmx")
-    public String palmx() {
-        return invokeClient.invokePalmx();
+    @RequestMapping("/dubbo")
+    public String dubbo() {
+        return invokeClient.invokeDubbo();
     }
-
-    @RequestMapping("/palmx/multi")
-    public String multiPalmx(int loopCount) {
-        return invokeClient.loopInvokeDemo(loopCount);
-    }
-
 }

@@ -1,7 +1,6 @@
 package me.wei.service;
 
 import me.xuqu.palmx.spring.PalmxClient;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,21 +8,12 @@ public class InvokeClient {
 
     @PalmxClient
     private PalmxService palmxService;
-    @DubboReference
-    private DubboServer dubboServer;
 
     public String invokePalmx() {
         long start = System.currentTimeMillis();
         String res = palmxService.demoInvoke();
         long end = System.currentTimeMillis();
         return "method = invokePalmx, res = " + res + ", duration = " + (end - start);
-    }
-
-    public String invokeDubbo() {
-        long start = System.currentTimeMillis();
-        String res = dubboServer.dubboInvoke();
-        long end = System.currentTimeMillis();
-        return "method = invokeDubbo, res = " + res + ", duration = " + (end - start);
     }
 
     public String loopInvokeDemo(int loopCount) {
